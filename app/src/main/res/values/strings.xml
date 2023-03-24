@@ -10,4 +10,6 @@
     <string name="title_favourite">Favourite</string>
     <string name="title_explore">Explore</string>
     <string name="title_info">Info</string>
+    <string name="title_setting">Setting</string>
+    <string name="title_actionbar">Github</string>
 </resources>
