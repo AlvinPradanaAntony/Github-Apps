@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DetailList">
-
+    tools:context=".DetailActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -32,7 +31,7 @@
                     android:layout_height="125dp"
                     android:layout_marginTop="36dp"
                     android:clickable="true"
-                    android:src="@drawable/dummypictures"
+                    android:src="@drawable/placeholder"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -62,9 +61,12 @@
 
                 <TextView
                     android:id="@+id/tv_userdetail_bio"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginEnd="25dp"
                     android:layout_marginTop="12dp"
+                    android:textAlignment="center"
                     android:text="@string/bio"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
                     android:textColor="@color/color_White"
@@ -192,7 +194,6 @@
                             android:id="@+id/view_location"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
-
                             <ImageView
                                 android:id="@+id/iv_location"
                                 android:layout_width="0dp"
@@ -221,6 +222,41 @@
                                 app:layout_constraintEnd_toEndOf="@+id/tv_location"
                                 app:layout_constraintStart_toStartOf="@+id/iv_location"
                                 app:layout_constraintTop_toBottomOf="@+id/tv_location" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/view_email"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:id="@+id/iv_mail"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
+                                android:layout_marginTop="12dp"
+                                android:src="@drawable/outline_email_24"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/tv_mail"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="6dp"
+                                android:layout_marginEnd="14dp"
+                                android:text="@string/email"
+                                app:layout_constraintBottom_toBottomOf="@+id/iv_mail"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/iv_mail"
+                                app:layout_constraintTop_toTopOf="@+id/iv_mail" />
+
+                            <View
+                                style="@style/Divider"
+                                android:layout_marginTop="12dp"
+                                app:layout_constraintEnd_toEndOf="@+id/tv_mail"
+                                app:layout_constraintStart_toStartOf="@+id/iv_mail"
+                                app:layout_constraintTop_toBottomOf="@+id/iv_mail" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -257,4 +293,5 @@
             android:visibility="gone"
             tools:visibility="visible"/>
     </RelativeLayout>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -15,7 +15,17 @@
 
     <string name="tab_text_1">Follower</string>
     <string name="tab_text_2">Following</string>
-    <string name="content_tab_home">Welcome Home</string>
-    <string name="content_tab_profile">Change your Profile here</string>
-    <string name="content_tab_text">This is Tab %1$d</string>
+    <string name="titleOnFragementHome">Users</string>
+    <string name="textName">Nickname</string>
+    <string name="textUsername">Nickname</string>
+    <string name="github_url">Github Url</string>
+    <string name="name">Nama</string>
+    <string name="bio">Tidak ada bio</string>
+    <string name="follower">Follower</string>
+    <string name="value_following">1000</string>
+    <string name="value_followers">1000</string>
+    <string name="following">Following</string>
+    <string name="company">Company</string>
+    <string name="location">Location</string>
+    <string name="email">Email</string>
 </resources>

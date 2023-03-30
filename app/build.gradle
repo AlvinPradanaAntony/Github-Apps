@@ -13,8 +13,8 @@ android {
         targetSdk 33
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "API_KEY", '"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"')
     }
     buildFeatures {
         viewBinding true
@@ -35,7 +35,7 @@ android {
 }
 
 dependencies {
-    // Material Design
+// Material Design
     implementation 'com.google.android.material:material:1.9.0-beta01'
 
     // Glide
@@ -51,6 +51,18 @@ dependencies {
 
     // ViewPager2
     implementation "androidx.viewpager2:viewpager2:1.0.0"
+
+    // Retrofit n OKHTTP
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation "com.squareup.retrofit2:converter-gson:2.9.0"
+    implementation "com.squareup.okhttp3:logging-interceptor:4.10.0"
+
+    // ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1"
+    implementation "androidx.activity:activity-ktx:1.6.1"
+
+    // LiveData
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.6.1"
 
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
