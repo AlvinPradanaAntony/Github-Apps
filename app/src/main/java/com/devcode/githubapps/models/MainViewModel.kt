@@ -121,8 +121,8 @@ class MainViewModel : ViewModel() {
                 call: Call<ArrayList<UsersResponsesItem>>,
                 response: Response<ArrayList<UsersResponsesItem>>
             ) {
-                _isLoading.value = false
                 if (response.isSuccessful) {
+                    _isLoading.value = false
                     val responseBody = response.body()
                     if (responseBody != null) {
                         _followers.postValue(responseBody)
@@ -146,8 +146,8 @@ class MainViewModel : ViewModel() {
                 call: Call<ArrayList<UsersResponsesItem>>,
                 response: Response<ArrayList<UsersResponsesItem>>
             ) {
-                _isLoading.value = false
                 if (response.isSuccessful) {
+                    _isLoading.value = false
                     val responseBody = response.body()
                     if (responseBody != null) {
                         _following.postValue(responseBody)

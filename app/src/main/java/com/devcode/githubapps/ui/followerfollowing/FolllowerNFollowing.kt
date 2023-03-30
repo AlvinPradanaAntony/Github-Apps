@@ -69,29 +69,27 @@ class FolllowerNFollowing : Fragment() {
 
     private fun ListDataUsers(username: String, index: Int) {
         if(index == 1) {
+            mainViewModel.isLoading.observe(requireActivity()) {
+                showLoading(it)
+            }
             mainViewModel.getListFollowers(username)
             mainViewModel.followers.observe(requireActivity()) { userResponse ->
                 if (userResponse != null) {
-                    observeLoading()
                     adapter.addData(userResponse)
                     setRecycleView()
                 }
             }
         } else{
+            mainViewModel.isLoading.observe(requireActivity()) {
+                showLoading(it)
+            }
             mainViewModel.getListFollowing(username)
             mainViewModel.following.observe(requireActivity()) { userResponse ->
                 if (userResponse != null) {
-                    observeLoading()
                     adapter.addData(userResponse)
                     setRecycleView()
                 }
             }
-        }
-    }
-
-    private fun observeLoading() {
-        mainViewModel.isLoading.observe(requireActivity()) {
-            showLoading(it)
         }
     }
 
@@ -115,6 +113,11 @@ class FolllowerNFollowing : Fragment() {
         } else {
             binding.flowProgress.visibility = View.GONE
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
 
