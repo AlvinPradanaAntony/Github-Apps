@@ -96,8 +96,8 @@ class MainViewModel : ViewModel() {
                 call: Call<DetailUsersResponses>,
                 response: Response<DetailUsersResponses>
             ) {
-                _isLoading.value = false
                 if (response.isSuccessful) {
+                    _isLoading.value = false
                     val responseBody = response.body()
                     if (responseBody != null) {
                         _detailUser.postValue(responseBody)
