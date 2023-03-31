@@ -41,7 +41,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val layoutManager = LinearLayoutManager(activity)
+        val layoutManager = LinearLayoutManager(requireActivity())
         binding.recycleView.layoutManager = layoutManager
 
         setUpSearchView()
@@ -71,13 +71,13 @@ class HomeFragment : Fragment() {
     }
 
     private fun ListDataUser(){
-        mainViewModel.listuser.observe(requireActivity()) { userResponse ->
+        mainViewModel.listuser.observe(viewLifecycleOwner) { userResponse ->
             if (userResponse != null) {
                 adapter.addData(userResponse)
                 setRecycleView()
             }
         }
-        mainViewModel.searchUser.observe(requireActivity()) { searchUserResponse ->
+        mainViewModel.searchUser.observe(viewLifecycleOwner) { searchUserResponse ->
             if (searchUserResponse != null) {
                 adapter.addData(searchUserResponse)
                 setRecycleView()
@@ -101,16 +101,11 @@ class HomeFragment : Fragment() {
                 val intent = Intent(requireActivity(), DetailActivity::class.java)
                 intent.putExtra(DetailActivity.EXTRA_STATE, data.login)
                 startActivity(intent)
-                Toast.makeText(requireContext(), data.login, Toast.LENGTH_SHORT).show()
             }
         })
     }
 
     private fun showLoading(isLoading: Boolean) {
-        if (isLoading) {
-            binding.progressBar.visibility = View.VISIBLE
-        } else {
-            binding.progressBar.visibility = View.GONE
-        }
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 }
