@@ -2,25 +2,18 @@ package com.devcode.githubapps.ui.followerfollowing
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.devcode.githubapps.DetailActivity
-import com.devcode.githubapps.DetailList
-import com.devcode.githubapps.R
 import com.devcode.githubapps.adapter.UsersAdapter
 import com.devcode.githubapps.databinding.FragmentFolllowerNFollowingBinding
 import com.devcode.githubapps.models.MainViewModel
 import com.devcode.githubapps.remote.UsersResponsesItem
 import com.google.android.material.snackbar.Snackbar
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class FolllowerNFollowing : Fragment() {
     private lateinit var _binding: FragmentFolllowerNFollowingBinding

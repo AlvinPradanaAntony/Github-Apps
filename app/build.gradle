@@ -14,7 +14,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "API_KEY", '"token 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"')
+        buildConfigField("String", "API_KEY", '"token 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"')
     }
     buildFeatures {
         viewBinding true

@@ -3,7 +3,7 @@
     <style name="Theme.GithubApps" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/color_blue</item>
-        <item name="colorPrimaryVariant">@color/color_blue</item>
+        <item name="colorPrimaryVariant">@color/white</item>
         <item name="colorOnPrimary">@color/color_blue</item>
         <item name="android:colorBackground">@color/background_White</item>
         <!-- Secondary brand color. -->
@@ -19,7 +19,7 @@
     <style name="AppThemeNoAppBar" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/color_blue</item>
-        <item name="colorPrimaryVariant">@color/color_blue</item>
+        <item name="colorPrimaryVariant">@color/white</item>
         <item name="colorOnPrimary">@color/color_blue</item>
         <item name="android:colorBackground">@color/background_White</item>
         <!-- Secondary brand color. -->

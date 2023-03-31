@@ -28,4 +28,10 @@
     <string name="company">Company</string>
     <string name="location">Location</string>
     <string name="email">Email</string>
+    <string name="term">Developer by Alvin Pradana Antony</string>
+    <string name="fitur3">Desain antarmuka yang sederhana dan intuitif membuat aplikasi mudah digunakan bahkan bagi pengguna yang belum terbiasa dengan teknologi.</string>
+    <string name="fitur2">Menampilkan detail data user dan follower dan following dari GitHub melalui REST API</string>
+    <string name="fitur1">Menampilkan list data user dari GitHub melalui REST API, membuat pengalaman pengguna lebih interaktif dan menyenangkan.</string>
+    <string name="versi_apps">Versi 1.0.0:</string>
+    <string name="subtitle_logo">apps</string>
 </resources>

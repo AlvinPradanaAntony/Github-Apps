@@ -25,7 +25,7 @@ class DetailActivity : AppCompatActivity() {
     private val mainViewModel by viewModels<MainViewModel>()
 
     companion object {
-        internal val TAG = DetailList::class.java.simpleName
+        internal val TAG = DetailActivity::class.java.simpleName
         const val EXTRA_STATE = "extra_state"
 
         @StringRes
@@ -40,7 +40,7 @@ class DetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val name = intent.getStringExtra(DetailList.EXTRA_STATE)
+        val name = intent.getStringExtra(EXTRA_STATE)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = name
 
