@@ -10,7 +10,6 @@ import androidx.annotation.StringRes
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.devcode.githubapps.databinding.ActivityDetailBinding
-import com.devcode.githubapps.models.DetailViewModel
 import com.devcode.githubapps.models.MainViewModel
 import com.devcode.githubapps.remote.ApiConfig
 import com.devcode.githubapps.remote.DetailUsersResponses
@@ -23,6 +22,7 @@ import retrofit2.Response
 
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
+    private val mainViewModel by viewModels<MainViewModel>()
 
     companion object {
         internal val TAG = DetailList::class.java.simpleName
@@ -44,14 +44,10 @@ class DetailActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = name
 
-            detailDataUsers(name)
-
+        detailDataUsers(name)
     }
 
     private fun detailDataUsers(username: String?) {
-        val mainViewModel: DetailViewModel by viewModels {
-            DetailViewModelFactory(username.toString())
-        }
         mainViewModel.isLoading.observe(this) {
             showLoading(it)
         }

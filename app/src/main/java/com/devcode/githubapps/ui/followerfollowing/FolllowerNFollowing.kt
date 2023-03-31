@@ -17,13 +17,14 @@ import com.devcode.githubapps.adapter.UsersAdapter
 import com.devcode.githubapps.databinding.FragmentFolllowerNFollowingBinding
 import com.devcode.githubapps.models.MainViewModel
 import com.devcode.githubapps.remote.UsersResponsesItem
+import com.google.android.material.snackbar.Snackbar
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class FolllowerNFollowing : Fragment() {
-    private var _binding: FragmentFolllowerNFollowingBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var _binding: FragmentFolllowerNFollowingBinding
+    private val binding get() = _binding
     private val list = ArrayList<UsersResponsesItem>()
     private val adapter: UsersAdapter by lazy {
         UsersAdapter(list)
@@ -67,20 +68,20 @@ class FolllowerNFollowing : Fragment() {
     }
 
     private fun ListDataUsers(username: String, index: Int) {
-        if(index == 1) {
+        if (index == 1) {
             mainViewModel.getListFollowers(username)
             mainViewModel.followers.observe(viewLifecycleOwner) { userResponse ->
                 if (userResponse != null) {
                     adapter.addData(userResponse)
-                    setRecycleView()
+                    setRecycleView(userResponse)
                 }
             }
-        } else{
+        } else {
             mainViewModel.getListFollowing(username)
             mainViewModel.following.observe(viewLifecycleOwner) { userResponse ->
                 if (userResponse != null) {
                     adapter.addData(userResponse)
-                    setRecycleView()
+                    setRecycleView(userResponse)
                 }
             }
         }
@@ -91,18 +92,27 @@ class FolllowerNFollowing : Fragment() {
             showLoading(it)
         }
     }
-    private fun setRecycleView() {
-        val layoutManager = LinearLayoutManager(requireActivity())
-        binding.flowRecyclerView.layoutManager = layoutManager
-        binding.flowRecyclerView.setHasFixedSize(true)
-        binding.flowRecyclerView.adapter = adapter
-        adapter.setOnItemClickCallback(object : UsersAdapter.OnItemClickCallback {
-            override fun onItemClicked(data: UsersResponsesItem) {
-                val intent = Intent(requireActivity(), DetailActivity::class.java)
-                intent.putExtra(DetailActivity.EXTRA_STATE, data.login)
-                startActivity(intent)
-            }
-        })
+
+    private fun setRecycleView(userResponse: ArrayList<UsersResponsesItem>) {
+        if (userResponse.isNotEmpty()) {
+            val layoutManager = LinearLayoutManager(requireActivity())
+            binding.flowRecyclerView.layoutManager = layoutManager
+            binding.flowRecyclerView.setHasFixedSize(true)
+            binding.flowRecyclerView.adapter = adapter
+            adapter.setOnItemClickCallback(object : UsersAdapter.OnItemClickCallback {
+                override fun onItemClicked(data: UsersResponsesItem) {
+                    val intent = Intent(requireActivity(), DetailActivity::class.java)
+                    intent.putExtra(DetailActivity.EXTRA_STATE, data.login)
+                    startActivity(intent)
+                }
+            })
+        } else {
+            Snackbar.make(
+                binding.flowRecyclerView,
+                "User response is empty",
+                Snackbar.LENGTH_LONG
+            ).show()
+        }
     }
 
     private fun showLoading(isLoading: Boolean) {
@@ -111,6 +121,5 @@ class FolllowerNFollowing : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        _binding = null
     }
 }

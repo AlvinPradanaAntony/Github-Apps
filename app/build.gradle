@@ -14,7 +14,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "API_KEY", '"token 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"')
+        buildConfigField("String", "API_KEY", '"token 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"')
     }
     buildFeatures {
         viewBinding true
@@ -35,10 +35,6 @@ android {
 }
 
 dependencies {
-    //Coroutines
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0'
-
     // Material Design
     implementation 'com.google.android.material:material:1.9.0-beta01'
 

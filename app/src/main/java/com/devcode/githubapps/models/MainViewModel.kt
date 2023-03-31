@@ -125,7 +125,7 @@ class MainViewModel : ViewModel() {
                     _isLoading.value = false
                     val responseBody = response.body()
                     if (responseBody != null) {
-                        _followers.postValue(responseBody)
+                        _followers.value = responseBody
                     }
                 } else {
                     Log.e(TAG, "onFailure: ${response.message()}")
@@ -150,7 +150,7 @@ class MainViewModel : ViewModel() {
                     _isLoading.value = false
                     val responseBody = response.body()
                     if (responseBody != null) {
-                        _following.postValue(responseBody)
+                        _following.value = responseBody
                     }
                 } else {
                     Log.e(TAG, "onFailure: ${response.message()}")
