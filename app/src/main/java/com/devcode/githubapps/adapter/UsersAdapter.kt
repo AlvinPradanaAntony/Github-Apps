@@ -1,6 +1,7 @@
 package com.devcode.githubapps.adapter
 
 import android.annotation.SuppressLint
+import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -11,6 +12,10 @@ import com.devcode.githubapps.remote.UsersResponsesItem
 
 class UsersAdapter(private val listUsers: ArrayList<UsersResponsesItem>) : RecyclerView.Adapter<UsersAdapter.ViewHolder>() {
     private lateinit var onItemClickCallback: OnItemClickCallback
+
+    private var extraHeight = dpToPx(88)
+
+
     fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
         this.onItemClickCallback = onItemClickCallback
     }
@@ -36,6 +41,13 @@ class UsersAdapter(private val listUsers: ArrayList<UsersResponsesItem>) : Recyc
             .error(R.drawable.placeholder)
             .into(holder.binding.ivProfile)
         holder.itemView.setOnClickListener { onItemClickCallback.onItemClicked(listUsers[holder.adapterPosition]) }
+
+        // tambahkan margin bottom pada item terakhir
+        if (position == listUsers.size - 1) {
+            val layoutParams = holder.itemView.layoutParams as ViewGroup.MarginLayoutParams
+            layoutParams.bottomMargin = extraHeight
+            holder.itemView.layoutParams = layoutParams
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -47,5 +59,10 @@ class UsersAdapter(private val listUsers: ArrayList<UsersResponsesItem>) : Recyc
 
     interface OnItemClickCallback {
         fun onItemClicked(data: UsersResponsesItem)
+    }
+
+    private fun dpToPx(dp: Int): Int {
+        val displayMetrics = Resources.getSystem().displayMetrics
+        return (dp * displayMetrics.density).toInt()
     }
 }
