@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.devcode.githubapps.DetailActivity
+import com.devcode.githubapps.adapter.DetailAdapter
 import com.devcode.githubapps.adapter.UsersAdapter
 import com.devcode.githubapps.databinding.FragmentFolllowerNFollowingBinding
 import com.devcode.githubapps.models.MainViewModel
@@ -19,8 +20,8 @@ class FolllowerNFollowing : Fragment() {
     private lateinit var _binding: FragmentFolllowerNFollowingBinding
     private val binding get() = _binding
     private val list = ArrayList<UsersResponsesItem>()
-    private val adapter: UsersAdapter by lazy {
-        UsersAdapter(list)
+    private val adapter: DetailAdapter by lazy {
+        DetailAdapter(list)
     }
     private val mainViewModel by viewModels<MainViewModel>()
 
@@ -92,7 +93,7 @@ class FolllowerNFollowing : Fragment() {
             binding.flowRecyclerView.layoutManager = layoutManager
             binding.flowRecyclerView.setHasFixedSize(true)
             binding.flowRecyclerView.adapter = adapter
-            adapter.setOnItemClickCallback(object : UsersAdapter.OnItemClickCallback {
+            adapter.setOnItemClickCallback(object : DetailAdapter.OnItemClickCallback {
                 override fun onItemClicked(data: UsersResponsesItem) {
                     val intent = Intent(requireActivity(), DetailActivity::class.java)
                     intent.putExtra(DetailActivity.EXTRA_STATE, data.login)

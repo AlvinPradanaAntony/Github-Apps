@@ -10,11 +10,8 @@ import com.devcode.githubapps.R
 import com.devcode.githubapps.databinding.ItemRowBinding
 import com.devcode.githubapps.remote.UsersResponsesItem
 
-class UsersAdapter(private val listUsers: ArrayList<UsersResponsesItem>) : RecyclerView.Adapter<UsersAdapter.ViewHolder>() {
+class DetailAdapter(private val listUsers: ArrayList<UsersResponsesItem>) : RecyclerView.Adapter<DetailAdapter.ViewHolder>() {
     private lateinit var onItemClickCallback: OnItemClickCallback
-
-    private var extraHeight = dpToPx(88)
-/*    private var lastItemPosition = 0*/
 
     fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
         this.onItemClickCallback = onItemClickCallback
@@ -41,16 +38,6 @@ class UsersAdapter(private val listUsers: ArrayList<UsersResponsesItem>) : Recyc
             .error(R.drawable.placeholder)
             .into(holder.binding.ivProfile)
         holder.itemView.setOnClickListener { onItemClickCallback.onItemClicked(listUsers[holder.adapterPosition]) }
-
-        if (position == listUsers.size - 1) {
-            val layoutParams = holder.itemView.layoutParams as ViewGroup.MarginLayoutParams
-            layoutParams.bottomMargin = extraHeight
-            holder.itemView.layoutParams = layoutParams
-        } else {
-            val layoutParams = holder.itemView.layoutParams as ViewGroup.MarginLayoutParams
-            layoutParams.bottomMargin = 0
-            holder.itemView.layoutParams = layoutParams
-        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -60,19 +47,7 @@ class UsersAdapter(private val listUsers: ArrayList<UsersResponsesItem>) : Recyc
         notifyDataSetChanged()
     }
 
-/*    fun setLastItemMargin() {
-        val holder = recyclerView.findViewHolderForAdapterPosition(lastItemPosition) as ViewHolder
-        val layoutParams = holder.itemView.layoutParams as ViewGroup.MarginLayoutParams
-        layoutParams.bottomMargin = extraHeight
-        holder.itemView.layoutParams = layoutParams
-    }*/
-
     interface OnItemClickCallback {
         fun onItemClicked(data: UsersResponsesItem)
-    }
-
-    private fun dpToPx(dp: Int): Int {
-        val displayMetrics = Resources.getSystem().displayMetrics
-        return (dp * displayMetrics.density).toInt()
     }
 }
