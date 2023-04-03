@@ -2,31 +2,26 @@ package com.devcode.githubapps.ui.followerfollowing
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.devcode.githubapps.DetailActivity
-import com.devcode.githubapps.adapter.DetailAdapter
 import com.devcode.githubapps.adapter.UsersAdapter
 import com.devcode.githubapps.databinding.FragmentFolllowerNFollowingBinding
-import com.devcode.githubapps.models.FollowViewModel
 import com.devcode.githubapps.models.MainViewModel
 import com.devcode.githubapps.remote.UsersResponsesItem
-import com.google.android.material.snackbar.Snackbar
 
 class FolllowerNFollowing : Fragment() {
-    private var _binding : FragmentFolllowerNFollowingBinding? = null
-    private val binding get()=_binding!!
+    private var _binding: FragmentFolllowerNFollowingBinding? = null
+    private val binding get() = _binding!!
     private val list = ArrayList<UsersResponsesItem>()
-    private val adapter: DetailAdapter by lazy {
-        DetailAdapter(list)
+    private val adapter: UsersAdapter by lazy {
+        UsersAdapter(list)
     }
-    private lateinit var viewModel: FollowViewModel
+    private val mainViewModel by viewModels<MainViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,57 +36,55 @@ class FolllowerNFollowing : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val position = arguments?.getInt(ARG_SECTION_NUMBER, 0)
-        val user = arguments?.getString(ARG_NAME)
+        val user = arguments?.getString(ARG_NAME).toString()
 
         if (position == 1) {
             val mIndex = 1
-            ListDataUsers(user.toString(), mIndex)
+            ListDataUsers(user, mIndex)
+            observeLoading()
         } else {
             val mIndex = 2
-            ListDataUsers(user.toString(), mIndex)
+            ListDataUsers(user, mIndex)
+            observeLoading()
         }
     }
 
     private fun ListDataUsers(username: String, index: Int) {
         if (index == 1) {
-            viewModel = ViewModelProvider(this)[FollowViewModel::class.java]
-            viewModel.follower(username)
-            viewModel.followerlivedata.observe(viewLifecycleOwner){
-                adapter.addData(it)
-                setRecycleView(it)
-            }
-            viewModel.isLoadingFollower.observe(requireActivity()) {
-                showLoading(it)
+            mainViewModel.listuser.observe(viewLifecycleOwner) { userResponse ->
+                if (userResponse != null) {
+                    adapter.addData(userResponse)
+                    setRecycleView()
+                }
             }
         } else {
-            viewModel = ViewModelProvider(this)[FollowViewModel::class.java]
-            viewModel.following(username)
-            viewModel.followinglivedata.observe(viewLifecycleOwner){
-                adapter.addData(it)
-                setRecycleView(it)
-            }
-            viewModel.isLoadingFollowing.observe(requireActivity()) {
-                showLoading(it)
+            mainViewModel.listuser.observe(viewLifecycleOwner) { userResponse ->
+                if (userResponse != null) {
+                    adapter.addData(userResponse)
+                    setRecycleView()
+                }
             }
         }
     }
 
 
-    private fun setRecycleView(userResponse: ArrayList<UsersResponsesItem>) {
-        if (userResponse.isNotEmpty()) {
-            val layoutManager = LinearLayoutManager(requireActivity())
-            binding.flowRecyclerView.layoutManager = layoutManager
-            binding.flowRecyclerView.setHasFixedSize(true)
-            binding.flowRecyclerView.adapter = adapter
-            adapter.setOnItemClickCallback(object : DetailAdapter.OnItemClickCallback {
-                override fun onItemClicked(data: UsersResponsesItem) {
-                    val intent = Intent(requireActivity(), DetailActivity::class.java)
-                    intent.putExtra(DetailActivity.EXTRA_STATE, data.login)
-                    startActivity(intent)
-                }
-            })
-        } else{
-            Log.d(TAG, "setRecycleView: $userResponse")
+    private fun setRecycleView() {
+        val layoutManager = LinearLayoutManager(requireActivity())
+        binding.flowRecyclerView.layoutManager = layoutManager
+        binding.flowRecyclerView.setHasFixedSize(true)
+        binding.flowRecyclerView.adapter = adapter
+        adapter.setOnItemClickCallback(object : UsersAdapter.OnItemClickCallback {
+            override fun onItemClicked(data: UsersResponsesItem) {
+                val intent = Intent(requireActivity(), DetailActivity::class.java)
+                intent.putExtra(DetailActivity.EXTRA_STATE, data.login)
+                startActivity(intent)
+            }
+        })
+    }
+
+    private fun observeLoading() {
+        mainViewModel.isLoading.observe(requireActivity()) {
+            showLoading(it)
         }
     }
 
