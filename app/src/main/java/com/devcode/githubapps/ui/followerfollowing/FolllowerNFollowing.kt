@@ -2,34 +2,31 @@ package com.devcode.githubapps.ui.followerfollowing
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.devcode.githubapps.DetailActivity
 import com.devcode.githubapps.adapter.DetailAdapter
 import com.devcode.githubapps.adapter.UsersAdapter
 import com.devcode.githubapps.databinding.FragmentFolllowerNFollowingBinding
+import com.devcode.githubapps.models.FollowViewModel
 import com.devcode.githubapps.models.MainViewModel
 import com.devcode.githubapps.remote.UsersResponsesItem
 import com.google.android.material.snackbar.Snackbar
 
 class FolllowerNFollowing : Fragment() {
-    private lateinit var _binding: FragmentFolllowerNFollowingBinding
-    private val binding get() = _binding
+    private var _binding : FragmentFolllowerNFollowingBinding? = null
+    private val binding get()=_binding!!
     private val list = ArrayList<UsersResponsesItem>()
     private val adapter: DetailAdapter by lazy {
         DetailAdapter(list)
     }
-    private val mainViewModel by viewModels<MainViewModel>()
-
-    companion object {
-        const val ARG_SECTION_NUMBER = "section_number"
-        const val ARG_NAME = "app_name"
-        private const val TAG = "ViewPagerFollows"
-    }
+    private lateinit var viewModel: FollowViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,46 +43,39 @@ class FolllowerNFollowing : Fragment() {
         val position = arguments?.getInt(ARG_SECTION_NUMBER, 0)
         val user = arguments?.getString(ARG_NAME)
 
-        val layoutManager = LinearLayoutManager(requireActivity())
-        binding.flowRecyclerView.layoutManager = layoutManager
-        binding.flowRecyclerView.setHasFixedSize(true)
-
         if (position == 1) {
             val mIndex = 1
-            observeLoading()
             ListDataUsers(user.toString(), mIndex)
         } else {
             val mIndex = 2
-            observeLoading()
             ListDataUsers(user.toString(), mIndex)
         }
     }
 
     private fun ListDataUsers(username: String, index: Int) {
         if (index == 1) {
-            mainViewModel.getListFollowers(username)
-            mainViewModel.followers.observe(viewLifecycleOwner) { userResponse ->
-                if (userResponse != null) {
-                    adapter.addData(userResponse)
-                    setRecycleView(userResponse)
-                }
+            viewModel = ViewModelProvider(this)[FollowViewModel::class.java]
+            viewModel.follower(username)
+            viewModel.followerlivedata.observe(viewLifecycleOwner){
+                adapter.addData(it)
+                setRecycleView(it)
+            }
+            viewModel.isLoadingFollower.observe(requireActivity()) {
+                showLoading(it)
             }
         } else {
-            mainViewModel.getListFollowing(username)
-            mainViewModel.following.observe(viewLifecycleOwner) { userResponse ->
-                if (userResponse != null) {
-                    adapter.addData(userResponse)
-                    setRecycleView(userResponse)
-                }
+            viewModel = ViewModelProvider(this)[FollowViewModel::class.java]
+            viewModel.following(username)
+            viewModel.followinglivedata.observe(viewLifecycleOwner){
+                adapter.addData(it)
+                setRecycleView(it)
+            }
+            viewModel.isLoadingFollowing.observe(requireActivity()) {
+                showLoading(it)
             }
         }
     }
 
-    private fun observeLoading() {
-        mainViewModel.isLoading.observe(requireActivity()) {
-            showLoading(it)
-        }
-    }
 
     private fun setRecycleView(userResponse: ArrayList<UsersResponsesItem>) {
         if (userResponse.isNotEmpty()) {
@@ -100,12 +90,8 @@ class FolllowerNFollowing : Fragment() {
                     startActivity(intent)
                 }
             })
-        } else {
-            Snackbar.make(
-                binding.flowRecyclerView,
-                "User response is empty",
-                Snackbar.LENGTH_LONG
-            ).show()
+        } else{
+            Log.d(TAG, "setRecycleView: $userResponse")
         }
     }
 
@@ -115,5 +101,11 @@ class FolllowerNFollowing : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
+    }
+
+    companion object {
+        const val ARG_SECTION_NUMBER = "section_number"
+        const val ARG_NAME = "app_name"
+        private const val TAG = "ViewPagerFollows"
     }
 }

@@ -7,9 +7,11 @@ import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.devcode.githubapps.databinding.ActivityDetailBinding
+import com.devcode.githubapps.models.DetailViewModel
 import com.devcode.githubapps.models.MainViewModel
 import com.devcode.githubapps.remote.ApiConfig
 import com.devcode.githubapps.remote.DetailUsersResponses
@@ -22,18 +24,7 @@ import retrofit2.Response
 
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
-    private val mainViewModel by viewModels<MainViewModel>()
-
-    companion object {
-        internal val TAG = DetailActivity::class.java.simpleName
-        const val EXTRA_STATE = "extra_state"
-
-        @StringRes
-        private val TAB_TITLES = intArrayOf(
-            R.string.tab_text_1,
-            R.string.tab_text_2
-        )
-    }
+    private lateinit var viewModel: DetailViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,21 +34,37 @@ class DetailActivity : AppCompatActivity() {
         val name = intent.getStringExtra(EXTRA_STATE)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = name
+        viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(DetailViewModel::class.java)
+        if (name != null) {
+            detailDataUsers(name)
+        }
 
-        detailDataUsers(name)
     }
 
-    private fun detailDataUsers(username: String?) {
-        mainViewModel.isLoading.observe(this) {
+    private fun detailDataUsers(username: String) {
+        viewModel.isLoading.observe(this) {
             showLoading(it)
         }
-        mainViewModel.getDetailUser(username.toString())
-        mainViewModel.detailUsers.observe(this@DetailActivity, { userResponse ->
-            if (userResponse != null) {
-                setData(userResponse)
-                setTabLayoutAdapter(userResponse)
+        viewModel.setUserDetail(username)
+        viewModel.getUserDetail().observe(this) {
+            if (it != null) {
+                setData(it)
+                setTabLayoutAdapter(it)
             }
-        })
+        }
+/*        mainViewModel.snackMsg.observe(this@DetailActivity) { errorMessage ->
+            if (!errorMessage.isNullOrEmpty()) {
+                val snackbar = Snackbar.make(
+                    findViewById(android.R.id.content),
+                    errorMessage,
+                    Snackbar.LENGTH_INDEFINITE
+                )
+                snackbar.setAction("Retry") {
+                    mainViewModel.getDetailUser(username.toString())
+                    snackbar.dismiss()
+                }.show()
+            }
+        }*/
     }
 
     private fun setData(userResponse: DetailUsersResponses) {
@@ -113,13 +120,19 @@ class DetailActivity : AppCompatActivity() {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> {
-                onBackPressed()
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return super.onSupportNavigateUp()
+    }
+
+    companion object {
+        internal val TAG = DetailActivity::class.java.simpleName
+        const val EXTRA_STATE = "extra_state"
+
+        @StringRes
+        private val TAB_TITLES = intArrayOf(
+            R.string.tab_text_1,
+            R.string.tab_text_2
+        )
     }
 }
