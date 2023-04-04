@@ -283,6 +283,7 @@
         android:layout_height="match_parent"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
 
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -296,4 +297,17 @@
             tools:visibility="visible" />
     </RelativeLayout>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fav_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_favorite_border_24"
+        app:tint="@color/white"
+        android:layout_gravity="end|bottom"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="10dp"
+        android:contentDescription="@string/favbutton"
+        android:clickable="true"
+        android:focusable="true"
+        app:rippleColor="#8FFFFFFF"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

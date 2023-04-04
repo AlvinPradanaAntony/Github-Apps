@@ -14,6 +14,9 @@ data class GithubResponses(
 )
 
 data class UsersResponsesItem(
+	@field:SerializedName("id")
+	val id: Int? = null,
+
 	@field:SerializedName("login")
 	val login: String? = null,
 

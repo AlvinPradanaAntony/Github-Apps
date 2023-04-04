@@ -100,6 +100,9 @@ class HomeFragment : Fragment() {
             override fun onItemClicked(data: UsersResponsesItem) {
                 val intent = Intent(requireActivity(), DetailActivity::class.java)
                 intent.putExtra(DetailActivity.EXTRA_STATE, data.login)
+                intent.putExtra(DetailActivity.EXTRA_ID, data.id)
+                intent.putExtra(DetailActivity.EXTRA_AVATAR_URL, data.avatarUrl)
+                intent.putExtra(DetailActivity.EXTRA_URL, data.htmlUrl)
                 startActivity(intent)
             }
         })

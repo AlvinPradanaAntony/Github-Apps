@@ -8,6 +8,7 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.devcode.githubapps.databinding.ActivityDetailBinding
@@ -18,6 +19,10 @@ import com.devcode.githubapps.remote.DetailUsersResponses
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -32,16 +37,22 @@ class DetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val name = intent.getStringExtra(EXTRA_STATE)
+        val id = intent.getIntExtra(EXTRA_ID, 0)
+        val avatarUrl = intent.getStringExtra(EXTRA_AVATAR_URL)
+        val url = intent.getStringExtra(EXTRA_URL)
+        val bundle = Bundle()
+        bundle.putString(EXTRA_STATE, name)
+        viewModel = ViewModelProviders.of(this).get(DetailViewModel::class.java)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = name
-        viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(DetailViewModel::class.java)
+
         if (name != null) {
-            detailDataUsers(name)
+            detailDataUsers(name, id, avatarUrl, url)
         }
 
     }
 
-    private fun detailDataUsers(username: String) {
+    private fun detailDataUsers(username: String, id: Int, avatarUrl: String?, url: String?) {
         viewModel.isLoading.observe(this) {
             showLoading(it)
         }
@@ -49,22 +60,35 @@ class DetailActivity : AppCompatActivity() {
         viewModel.getUserDetail().observe(this) {
             if (it != null) {
                 setData(it)
+                var _isChecked = false
+                CoroutineScope(Dispatchers.IO).launch {
+                    val count = viewModel.checkUser(id)
+                    withContext(Dispatchers.Main) {
+                        if (count != null) {
+                            if (count > 0) {
+                                binding.favButton.setImageResource(R.drawable.ic_baseline_favorite_24)
+                                _isChecked = true
+
+                            } else {
+                                binding.favButton.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+                                _isChecked = false
+                            }
+                        }
+                    }
+                }
+                binding.favButton.setOnClickListener {
+                    _isChecked = !_isChecked
+                    if (_isChecked) {
+                        viewModel.addToFavorite(username, id, avatarUrl!!, url!!)
+                        binding.favButton.setImageResource(R.drawable.ic_baseline_favorite_24)
+                    } else {
+                        viewModel.deleteFromFavorite(id)
+                        binding.favButton.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+                    }
+                }
                 setTabLayoutAdapter(it)
             }
         }
-/*        mainViewModel.snackMsg.observe(this@DetailActivity) { errorMessage ->
-            if (!errorMessage.isNullOrEmpty()) {
-                val snackbar = Snackbar.make(
-                    findViewById(android.R.id.content),
-                    errorMessage,
-                    Snackbar.LENGTH_INDEFINITE
-                )
-                snackbar.setAction("Retry") {
-                    mainViewModel.getDetailUser(username.toString())
-                    snackbar.dismiss()
-                }.show()
-            }
-        }*/
     }
 
     private fun setData(userResponse: DetailUsersResponses) {
@@ -128,6 +152,9 @@ class DetailActivity : AppCompatActivity() {
     companion object {
         internal val TAG = DetailActivity::class.java.simpleName
         const val EXTRA_STATE = "extra_state"
+        const val EXTRA_ID = "extra_id"
+        const val EXTRA_AVATAR_URL = "extra_avatar_url"
+        const val EXTRA_URL = "extra_url"
 
         @StringRes
         private val TAB_TITLES = intArrayOf(
