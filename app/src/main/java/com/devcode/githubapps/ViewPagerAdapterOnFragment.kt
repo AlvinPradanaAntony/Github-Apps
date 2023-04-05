@@ -6,14 +6,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.devcode.githubapps.ui.followerfollowing.FolllowerNFollowing
+import com.devcode.githubapps.ui.followerfollowing.FolllowerNFollowingOnFragment
 
 class ViewPagerAdapterOnFragment(activity: FragmentActivity): FragmentStateAdapter(activity) {
     var username: String = ""
     override fun createFragment(position: Int): Fragment {
-        val fragment = FolllowerNFollowing()
+        val fragment = FolllowerNFollowingOnFragment()
         fragment.arguments = Bundle().apply {
-            putInt(FolllowerNFollowing.ARG_SECTION_NUMBER, position + 1)
-            putString(FolllowerNFollowing.ARG_NAME, username)
+            putInt(FolllowerNFollowingOnFragment.ARG_SECTION_NUMBER, position + 1)
+            putString(FolllowerNFollowingOnFragment.ARG_NAME, username)
         }
         return fragment
     }

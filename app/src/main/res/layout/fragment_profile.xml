@@ -20,7 +20,7 @@
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/background_White"
+                android:background="?attr/colorPrimary"
                 android:fitsSystemWindows="true"
                 app:expandedTitleGravity="center"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
@@ -68,10 +68,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="25dp"
-                        android:layout_marginTop="12dp"
                         android:layout_marginEnd="25dp"
-                        android:text="@string/bio"
+                        android:layout_marginTop="12dp"
                         android:textAlignment="center"
+                        android:text="@string/bio"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
                         android:textColor="@color/color_White"
                         android:textStyle="italic"
@@ -140,8 +140,8 @@
                     <com.google.android.material.card.MaterialCardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="25dp"
                         android:layout_marginTop="10dp"
+                        android:layout_marginStart="25dp"
                         android:layout_marginEnd="25dp"
                         android:layout_marginBottom="10dp"
                         app:cardBackgroundColor="@color/background_White"
@@ -180,7 +180,9 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="6dp"
                                     android:layout_marginEnd="14dp"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                                     android:text="@string/company"
+                                    android:textColor="@color/color_deeppurple"
                                     app:layout_constraintBottom_toBottomOf="@+id/iv_company"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toEndOf="@+id/iv_company"
@@ -198,7 +200,6 @@
                                 android:id="@+id/view_location"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content">
-
                                 <ImageView
                                     android:id="@+id/iv_location"
                                     android:layout_width="0dp"
@@ -215,7 +216,9 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="6dp"
                                     android:layout_marginEnd="14dp"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                                     android:text="@string/location"
+                                    android:textColor="@color/color_deeppurple"
                                     app:layout_constraintBottom_toBottomOf="@+id/iv_location"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toEndOf="@+id/iv_location"
@@ -250,6 +253,8 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="6dp"
                                     android:layout_marginEnd="14dp"
+                                    android:textColor="@color/color_deeppurple"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                                     android:text="@string/email"
                                     app:layout_constraintBottom_toBottomOf="@+id/iv_mail"
                                     app:layout_constraintEnd_toEndOf="parent"
@@ -282,8 +287,9 @@
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
+
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -294,7 +300,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:elevation="4dp"
                 android:visibility="gone"
                 tools:visibility="visible" />
         </RelativeLayout>
