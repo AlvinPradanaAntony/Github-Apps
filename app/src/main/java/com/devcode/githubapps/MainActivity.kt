@@ -20,7 +20,6 @@ import com.devcode.githubapps.utils.ViewModelFactory
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var topAppBar: MaterialToolbar
@@ -48,19 +47,6 @@ class MainActivity : AppCompatActivity() {
                 else ->{
                     false
                 }
-            }
-        }
-
-        val pref = SettingPreferences.getInstance(dataStore)
-        val mainViewModel = ViewModelProvider(this, ViewModelFactory(pref)).get(
-            SettingViewModel::class.java
-        )
-        mainViewModel.getThemeSettings().observe(this
-        ) { isDarkModeActive: Boolean ->
-            if (isDarkModeActive) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            } else {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             }
         }
     }
