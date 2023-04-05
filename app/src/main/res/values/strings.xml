@@ -37,4 +37,7 @@
 
     <string name="favbutton" translatable="false">favButton</string>
     <string name="text_favourite">Users Favourite</string>
+    <string name="off">OFF</string>
+    <string name="on">ON</string>
+    <string name="sw_dark_theme">Dark Theme</string>
 </resources>

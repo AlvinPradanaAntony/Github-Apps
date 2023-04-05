@@ -5,6 +5,7 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="color_soft_white">#CAD5E2</color>
     <color name="color_soft_white2">#F6F8FA</color>
+    <color name="color_soft_white3">#F2F5F8</color>
     <color name="white">#FFFFFFFF</color>
 
     <color name="item_color_active">#388BFD</color>
@@ -19,6 +20,8 @@
     <color name="color_gray2">#535f70</color>
     <color name="color_deeppurple">#1E1F25</color>
 
+    <color name="color_primary_darktheme">#131517</color>
+    <color name="color_secondary_darktheme">#1E1F25</color>
 
     <color name="alto">#E0E0E0</color>
     <color name="cerulean">#00AAD3</color>
