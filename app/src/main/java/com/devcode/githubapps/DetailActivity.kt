@@ -79,7 +79,7 @@ class DetailActivity : AppCompatActivity() {
                 binding.favButton.setOnClickListener {
                     _isChecked = !_isChecked
                     if (_isChecked) {
-                        viewModel.addToFavorite(username, id, avatarUrl!!, url!!)
+                        viewModel.addToFavorite(username, id, avatarUrl.toString(), url.toString())
                         binding.favButton.setImageResource(R.drawable.ic_baseline_favorite_24)
                     } else {
                         viewModel.deleteFromFavorite(id)
