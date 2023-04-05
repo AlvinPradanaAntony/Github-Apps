@@ -20,9 +20,6 @@
             android:name=".DetailActivity"
             android:exported="false" />
         <activity
-            android:name=".DetailList"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/AppThemeNoAppBar">

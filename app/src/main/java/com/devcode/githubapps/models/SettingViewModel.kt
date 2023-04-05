@@ -1,9 +1,6 @@
 package com.devcode.githubapps.models
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.devcode.githubapps.utils.SettingPreferences
 import kotlinx.coroutines.launch
 
