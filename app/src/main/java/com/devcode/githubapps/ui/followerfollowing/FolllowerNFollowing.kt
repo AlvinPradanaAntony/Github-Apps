@@ -69,7 +69,6 @@ class FolllowerNFollowing : Fragment() {
         }
     }
 
-
     private fun setRecycleView() {
         val layoutManager = LinearLayoutManager(requireActivity())
         binding.flowRecyclerView.layoutManager = layoutManager

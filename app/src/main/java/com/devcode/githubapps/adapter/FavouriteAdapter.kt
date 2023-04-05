@@ -1,14 +1,12 @@
 package com.devcode.githubapps.adapter
 
 import android.annotation.SuppressLint
-import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.devcode.githubapps.R
 import com.devcode.githubapps.databinding.ItemRowBinding
-import com.devcode.githubapps.remote.UsersResponsesItem
 import com.example.githubuser.data.FavoriteUser
 
 class FavouriteAdapter(private val listUsers: ArrayList<FavoriteUser>) : RecyclerView.Adapter<FavouriteAdapter.ViewHolder>() {

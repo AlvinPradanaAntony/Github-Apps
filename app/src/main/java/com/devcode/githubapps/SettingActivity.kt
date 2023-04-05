@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.CompoundButton
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
@@ -15,7 +14,7 @@ import com.devcode.githubapps.databinding.ActivitySettingBinding
 import com.devcode.githubapps.models.SettingViewModel
 import com.devcode.githubapps.utils.SettingPreferences
 import com.devcode.githubapps.utils.ViewModelFactory
-import com.google.android.material.switchmaterial.SwitchMaterial
+
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 class SettingActivity : AppCompatActivity() {

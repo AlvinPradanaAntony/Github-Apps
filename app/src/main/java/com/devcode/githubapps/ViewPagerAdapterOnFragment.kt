@@ -1,11 +1,9 @@
 package com.devcode.githubapps
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.devcode.githubapps.ui.followerfollowing.FolllowerNFollowing
 import com.devcode.githubapps.ui.followerfollowing.FolllowerNFollowingOnFragment
 
 class ViewPagerAdapterOnFragment(activity: FragmentActivity): FragmentStateAdapter(activity) {

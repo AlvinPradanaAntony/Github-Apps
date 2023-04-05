@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.devcode.githubapps.DetailActivity
-import com.devcode.githubapps.adapter.FollowAdapter
 import com.devcode.githubapps.adapter.UsersAdapter
 import com.devcode.githubapps.databinding.FragmentFolllowerNFollowingBinding
 import com.devcode.githubapps.models.MainViewModel

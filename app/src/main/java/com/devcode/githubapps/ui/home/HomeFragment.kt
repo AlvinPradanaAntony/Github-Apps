@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,10 +23,6 @@ class HomeFragment : Fragment() {
         UsersAdapter(list)
     }
     private val mainViewModel by viewModels<MainViewModel>()
-
-    companion object {
-        private const val TAG = "HomeFragment"
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -110,5 +105,9 @@ class HomeFragment : Fragment() {
 
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    companion object {
+        private const val TAG = "HomeFragment"
     }
 }

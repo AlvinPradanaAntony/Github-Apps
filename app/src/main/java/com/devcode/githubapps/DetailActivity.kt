@@ -2,19 +2,13 @@ package com.devcode.githubapps
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.MenuItem
 import android.view.View
-import androidx.activity.viewModels
 import androidx.annotation.StringRes
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.devcode.githubapps.databinding.ActivityDetailBinding
 import com.devcode.githubapps.models.DetailViewModel
-import com.devcode.githubapps.models.MainViewModel
-import com.devcode.githubapps.remote.ApiConfig
 import com.devcode.githubapps.remote.DetailUsersResponses
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
@@ -23,9 +17,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
@@ -81,9 +72,11 @@ class DetailActivity : AppCompatActivity() {
                     if (_isChecked) {
                         viewModel.addToFavorite(username, id, avatarUrl.toString(), url.toString())
                         binding.favButton.setImageResource(R.drawable.ic_baseline_favorite_24)
+                        Snackbar.make(binding.root, "Added to Favorite", Snackbar.LENGTH_SHORT).show()
                     } else {
                         viewModel.deleteFromFavorite(id)
                         binding.favButton.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+                        Snackbar.make(binding.root, "Removed from Favorite", Snackbar.LENGTH_SHORT).show()
                     }
                 }
                 setTabLayoutAdapter(it)

@@ -11,11 +11,8 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.devcode.githubapps.DetailActivity
 import com.devcode.githubapps.adapter.FavouriteAdapter
-import com.devcode.githubapps.adapter.UsersAdapter
 import com.devcode.githubapps.databinding.FragmentFavouriteBinding
-import com.devcode.githubapps.databinding.FragmentInfoBinding
 import com.devcode.githubapps.models.FavoriteViewModel
-import com.devcode.githubapps.remote.UsersResponsesItem
 import com.example.githubuser.data.FavoriteUser
 
 

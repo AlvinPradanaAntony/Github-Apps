@@ -1,17 +1,13 @@
 package com.devcode.githubapps.models
 
-import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.bumptech.glide.Glide
 import com.devcode.githubapps.remote.ApiConfig
 import com.devcode.githubapps.remote.DetailUsersResponses
 import com.devcode.githubapps.remote.GithubResponses
 import com.devcode.githubapps.remote.UsersResponsesItem
-import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

@@ -3,19 +3,14 @@ package com.devcode.githubapps.ui.profile
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.viewModels
 import androidx.annotation.StringRes
 import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
-import com.devcode.githubapps.DetailActivity
 import com.devcode.githubapps.R
-import com.devcode.githubapps.ViewPagerAdapter
 import com.devcode.githubapps.ViewPagerAdapterOnFragment
-import com.devcode.githubapps.databinding.FragmentHomeBinding
 import com.devcode.githubapps.databinding.FragmentProfileBinding
 import com.devcode.githubapps.models.MainViewModel
 import com.devcode.githubapps.remote.DetailUsersResponses
@@ -27,16 +22,6 @@ class ProfileFragment : Fragment() {
    private var _binding: FragmentProfileBinding? = null
    private val binding get() = _binding!!
    private val mainViewModel by viewModels<MainViewModel>()
-
-   companion object {
-      internal val TAG = ProfileFragment::class.java.simpleName
-
-      @StringRes
-      private val TAB_TITLES = intArrayOf(
-         R.string.tab_text_1,
-         R.string.tab_text_2
-      )
-   }
 
    override fun onCreateView(
       inflater: LayoutInflater,
@@ -117,5 +102,15 @@ class ProfileFragment : Fragment() {
 
    private fun showLoading(isLoading: Boolean) {
       binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+   }
+
+   companion object {
+      internal val TAG = ProfileFragment::class.java.simpleName
+
+      @StringRes
+      private val TAB_TITLES = intArrayOf(
+         R.string.tab_text_1,
+         R.string.tab_text_2
+      )
    }
 }
