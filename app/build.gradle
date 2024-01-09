@@ -6,17 +6,17 @@ plugins {
 }
 
 android {
-    namespace 'com.devcode.githubapps'
+    namespace 'com.devcode.githubappsfinal'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.devcode.githubapps"
+        applicationId "com.devcode.githubappsfinal"
         minSdk 22
         targetSdk 33
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "API_KEY", '"token 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"')
+        buildConfigField("String", "API_KEY", '"token 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"')
     }
     buildFeatures {
         viewBinding true

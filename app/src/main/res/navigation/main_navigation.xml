@@ -7,22 +7,22 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.devcode.githubapps.ui.home.HomeFragment"
+        android:name="com.devcode.githubappsfinal.ui.home.HomeFragment"
         android:label="Home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="com.devcode.githubapps.ui.profile.ProfileFragment"
+        android:name="com.devcode.githubappsfinal.ui.profile.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/navigation_info"
-        android:name="com.devcode.githubapps.ui.info.InfoFragment"
+        android:name="com.devcode.githubappsfinal.ui.info.InfoFragment"
         android:label="fragment_info"
         tools:layout="@layout/fragment_info" />
     <fragment
         android:id="@+id/navigation_favourite"
-        android:name="com.devcode.githubapps.ui.favourite.FavouriteFragment"
+        android:name="com.devcode.githubappsfinal.ui.favourite.FavouriteFragment"
         android:label="fragment_favourite"
         tools:layout="@layout/fragment_favourite" />
 </navigation>
