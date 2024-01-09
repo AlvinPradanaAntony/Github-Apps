@@ -4,10 +4,12 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.bumptech.glide.Glide
 import com.devcode.githubapps.remote.ApiConfig
 import com.devcode.githubapps.remote.DetailUsersResponses
 import com.devcode.githubapps.remote.GithubResponses
 import com.devcode.githubapps.remote.UsersResponsesItem
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,9 +33,6 @@ class MainViewModel : ViewModel() {
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
-
-    private val _snackMsg = MutableLiveData<String>()
-    val snackMsg: LiveData<String> = _snackMsg
 
     companion object {
         private const val TAG = "MainViewModel"
@@ -59,7 +58,6 @@ class MainViewModel : ViewModel() {
                     }
                 }
             }
-
             override fun onFailure(call: Call<GithubResponses>, t: Throwable) {
                 _isLoading.value = true
                 Log.e(TAG, "onFailure: ${t.message.toString()}")
@@ -83,7 +81,6 @@ class MainViewModel : ViewModel() {
                     }
                 }
             }
-
             override fun onFailure(call: Call<ArrayList<UsersResponsesItem>>, t: Throwable) {
                 _isLoading.value = true
                 Log.e(TAG, "onFailure: ${t.message.toString()}")
@@ -91,7 +88,8 @@ class MainViewModel : ViewModel() {
         })
     }
 
-    fun getDetailUser(username: String) {
+    fun getDetailUser(username: String){
+        _isLoading.value = true
         val client = ApiConfig.getApiService().getDetailUser(username)
         client.enqueue(object : Callback<DetailUsersResponses> {
             override fun onResponse(
@@ -108,16 +106,14 @@ class MainViewModel : ViewModel() {
                     Log.e(TAG, "onFailure: ${response.message()}")
                 }
             }
-
             override fun onFailure(call: Call<DetailUsersResponses>, t: Throwable) {
                 _isLoading.value = true
                 Log.e(TAG, "onFailure: ${t.message}")
-                _snackMsg.value = t.message
             }
         })
     }
 
-    fun getListFollowers(username: String) {
+    fun getListFollowers(username: String){
         _isLoading.value = true
         val client = ApiConfig.getApiService().getUserFollowers(username)
         client.enqueue(object : Callback<ArrayList<UsersResponsesItem>> {
@@ -135,7 +131,6 @@ class MainViewModel : ViewModel() {
                     Log.e(TAG, "onFailure: ${response.message()}")
                 }
             }
-
             override fun onFailure(call: Call<ArrayList<UsersResponsesItem>>, t: Throwable) {
                 _isLoading.value = true
                 Log.e(TAG, "onFailure: ${t.message}")
@@ -143,7 +138,7 @@ class MainViewModel : ViewModel() {
         })
     }
 
-    fun getListFollowing(username: String) {
+    fun getListFollowing(username: String){
         _isLoading.value = true
         val client = ApiConfig.getApiService().getUserFollowing(username)
         client.enqueue(object : Callback<ArrayList<UsersResponsesItem>> {
@@ -161,7 +156,6 @@ class MainViewModel : ViewModel() {
                     Log.e(TAG, "onFailure: ${response.message()}")
                 }
             }
-
             override fun onFailure(call: Call<ArrayList<UsersResponsesItem>>, t: Throwable) {
                 _isLoading.value = true
                 Log.e(TAG, "onFailure: ${t.message}")

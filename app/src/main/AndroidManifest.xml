@@ -14,7 +14,13 @@
         android:theme="@style/Theme.GithubApps"
         tools:targetApi="31">
         <activity
-            android:name=".SplashScreen"
+            android:name=".DetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DetailList"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/AppThemeNoAppBar">
             <intent-filter>
@@ -22,17 +28,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".SettingActivity"
-            android:exported="false" />
-        <activity
-            android:name=".DetailActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="false"
-            android:theme="@style/AppThemeNoAppBar">
         </activity>
     </application>
 

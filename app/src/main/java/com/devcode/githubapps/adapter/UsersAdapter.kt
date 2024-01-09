@@ -14,6 +14,7 @@ class UsersAdapter(private val listUsers: ArrayList<UsersResponsesItem>) : Recyc
     private lateinit var onItemClickCallback: OnItemClickCallback
 
     private var extraHeight = dpToPx(88)
+/*    private var lastItemPosition = 0*/
 
     fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
         this.onItemClickCallback = onItemClickCallback
@@ -33,12 +34,10 @@ class UsersAdapter(private val listUsers: ArrayList<UsersResponsesItem>) : Recyc
         holder.binding.tvUsername.text = listUsers[position].htmlUrl
         Glide.with(holder.itemView.context)
             .load(listUsers[position].avatarUrl)
-            .override(102, 102)
             .error(R.drawable.placeholder)
             .into(holder.binding.profileImage)
         Glide.with(holder.itemView.context)
             .load(listUsers[position].avatarUrl)
-            .override(350, 350)
             .error(R.drawable.placeholder)
             .into(holder.binding.ivProfile)
         holder.itemView.setOnClickListener { onItemClickCallback.onItemClicked(listUsers[holder.adapterPosition]) }
@@ -60,6 +59,13 @@ class UsersAdapter(private val listUsers: ArrayList<UsersResponsesItem>) : Recyc
         listUsers.addAll(items)
         notifyDataSetChanged()
     }
+
+/*    fun setLastItemMargin() {
+        val holder = recyclerView.findViewHolderForAdapterPosition(lastItemPosition) as ViewHolder
+        val layoutParams = holder.itemView.layoutParams as ViewGroup.MarginLayoutParams
+        layoutParams.bottomMargin = extraHeight
+        holder.itemView.layoutParams = layoutParams
+    }*/
 
     interface OnItemClickCallback {
         fun onItemClicked(data: UsersResponsesItem)

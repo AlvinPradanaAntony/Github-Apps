@@ -34,10 +34,4 @@
     <string name="fitur1">Menampilkan list data user dari GitHub melalui REST API, membuat pengalaman pengguna lebih interaktif dan menyenangkan.</string>
     <string name="versi_apps">Versi 1.0.0:</string>
     <string name="subtitle_logo">apps</string>
-
-    <string name="favbutton" translatable="false">favButton</string>
-    <string name="text_favourite">Users Favourite</string>
-    <string name="off">OFF</string>
-    <string name="on">ON</string>
-    <string name="sw_dark_theme">Dark Theme</string>
 </resources>

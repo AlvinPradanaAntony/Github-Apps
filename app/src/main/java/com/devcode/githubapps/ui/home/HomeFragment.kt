@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,6 +24,10 @@ class HomeFragment : Fragment() {
         UsersAdapter(list)
     }
     private val mainViewModel by viewModels<MainViewModel>()
+
+    companion object {
+        private const val TAG = "HomeFragment"
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -95,9 +100,6 @@ class HomeFragment : Fragment() {
             override fun onItemClicked(data: UsersResponsesItem) {
                 val intent = Intent(requireActivity(), DetailActivity::class.java)
                 intent.putExtra(DetailActivity.EXTRA_STATE, data.login)
-                intent.putExtra(DetailActivity.EXTRA_ID, data.id)
-                intent.putExtra(DetailActivity.EXTRA_AVATAR_URL, data.avatarUrl)
-                intent.putExtra(DetailActivity.EXTRA_URL, data.htmlUrl)
                 startActivity(intent)
             }
         })
@@ -105,9 +107,5 @@ class HomeFragment : Fragment() {
 
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
-    }
-
-    companion object {
-        private const val TAG = "HomeFragment"
     }
 }

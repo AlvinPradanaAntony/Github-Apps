@@ -9,19 +9,27 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.devcode.githubapps.DetailActivity
-import com.devcode.githubapps.adapter.FollowAdapter
+import com.devcode.githubapps.adapter.DetailAdapter
+import com.devcode.githubapps.adapter.UsersAdapter
 import com.devcode.githubapps.databinding.FragmentFolllowerNFollowingBinding
 import com.devcode.githubapps.models.MainViewModel
 import com.devcode.githubapps.remote.UsersResponsesItem
+import com.google.android.material.snackbar.Snackbar
 
 class FolllowerNFollowing : Fragment() {
-    private var _binding: FragmentFolllowerNFollowingBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var _binding: FragmentFolllowerNFollowingBinding
+    private val binding get() = _binding
     private val list = ArrayList<UsersResponsesItem>()
-    private val adapter: FollowAdapter by lazy {
-        FollowAdapter(list)
+    private val adapter: DetailAdapter by lazy {
+        DetailAdapter(list)
     }
     private val mainViewModel by viewModels<MainViewModel>()
+
+    companion object {
+        const val ARG_SECTION_NUMBER = "section_number"
+        const val ARG_NAME = "app_name"
+        private const val TAG = "ViewPagerFollows"
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,16 +44,20 @@ class FolllowerNFollowing : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val position = arguments?.getInt(ARG_SECTION_NUMBER, 0)
-        val user = arguments?.getString(ARG_NAME).toString()
+        val user = arguments?.getString(ARG_NAME)
+
+        val layoutManager = LinearLayoutManager(requireActivity())
+        binding.flowRecyclerView.layoutManager = layoutManager
+        binding.flowRecyclerView.setHasFixedSize(true)
 
         if (position == 1) {
             val mIndex = 1
-            ListDataUsers(user, mIndex)
             observeLoading()
+            ListDataUsers(user.toString(), mIndex)
         } else {
             val mIndex = 2
-            ListDataUsers(user, mIndex)
             observeLoading()
+            ListDataUsers(user.toString(), mIndex)
         }
     }
 
@@ -55,7 +67,7 @@ class FolllowerNFollowing : Fragment() {
             mainViewModel.followers.observe(viewLifecycleOwner) { userResponse ->
                 if (userResponse != null) {
                     adapter.addData(userResponse)
-                    setRecycleView()
+                    setRecycleView(userResponse)
                 }
             }
         } else {
@@ -63,29 +75,37 @@ class FolllowerNFollowing : Fragment() {
             mainViewModel.following.observe(viewLifecycleOwner) { userResponse ->
                 if (userResponse != null) {
                     adapter.addData(userResponse)
-                    setRecycleView()
+                    setRecycleView(userResponse)
                 }
             }
         }
     }
 
-    private fun setRecycleView() {
-        val layoutManager = LinearLayoutManager(requireActivity())
-        binding.flowRecyclerView.layoutManager = layoutManager
-        binding.flowRecyclerView.setHasFixedSize(true)
-        binding.flowRecyclerView.adapter = adapter
-        adapter.setOnItemClickCallback(object : FollowAdapter.OnItemClickCallback {
-            override fun onItemClicked(data: UsersResponsesItem) {
-                val intent = Intent(requireActivity(), DetailActivity::class.java)
-                intent.putExtra(DetailActivity.EXTRA_STATE, data.login)
-                startActivity(intent)
-            }
-        })
-    }
-
     private fun observeLoading() {
         mainViewModel.isLoading.observe(requireActivity()) {
             showLoading(it)
+        }
+    }
+
+    private fun setRecycleView(userResponse: ArrayList<UsersResponsesItem>) {
+        if (userResponse.isNotEmpty()) {
+            val layoutManager = LinearLayoutManager(requireActivity())
+            binding.flowRecyclerView.layoutManager = layoutManager
+            binding.flowRecyclerView.setHasFixedSize(true)
+            binding.flowRecyclerView.adapter = adapter
+            adapter.setOnItemClickCallback(object : DetailAdapter.OnItemClickCallback {
+                override fun onItemClicked(data: UsersResponsesItem) {
+                    val intent = Intent(requireActivity(), DetailActivity::class.java)
+                    intent.putExtra(DetailActivity.EXTRA_STATE, data.login)
+                    startActivity(intent)
+                }
+            })
+        } else {
+            Snackbar.make(
+                binding.flowRecyclerView,
+                "User response is empty",
+                Snackbar.LENGTH_LONG
+            ).show()
         }
     }
 
@@ -95,11 +115,5 @@ class FolllowerNFollowing : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-    }
-
-    companion object {
-        const val ARG_SECTION_NUMBER = "section_number"
-        const val ARG_NAME = "app_name"
-        private const val TAG = "ViewPagerFollows"
     }
 }

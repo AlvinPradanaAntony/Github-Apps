@@ -2,15 +2,14 @@
     <!-- Base application theme. -->
     <style name="Theme.GithubApps" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/color_primary_darktheme</item>
-        <item name="colorPrimaryVariant">@color/color_primary_darktheme</item>
+        <item name="colorPrimary">@color/color_blue</item>
+        <item name="colorPrimaryVariant">@color/white</item>
         <item name="colorOnPrimary">@color/color_blue</item>
         <item name="android:textColorPrimary">@color/color_deeppurple</item>
-        <item name="android:colorBackground">@color/color_primary_darktheme</item>
-        <item name="android:textColor">@color/background_White</item>
+        <item name="android:colorBackground">@color/background_White</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/background_White</item>
-        <item name="colorSecondaryVariant">@color/color_secondary_darktheme</item>
+        <item name="colorSecondary">@color/color_blue</item>
+        <item name="colorSecondaryVariant">@color/color_blue</item>
         <item name="colorOnSecondary">@color/color_blue</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
@@ -20,15 +19,14 @@
 
     <style name="AppThemeNoAppBar" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/color_primary_darktheme</item>
-        <item name="colorPrimaryVariant">@color/color_primary_darktheme</item>
+        <item name="colorPrimary">@color/color_blue</item>
+        <item name="colorPrimaryVariant">@color/white</item>
         <item name="colorOnPrimary">@color/color_blue</item>
-        <item name="android:colorBackground">@color/color_primary_darktheme</item>
-        <item name="android:textColor">@color/background_White</item>
+        <item name="android:colorBackground">@color/background_White</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/color_secondary_darktheme</item>
-        <item name="colorSecondaryVariant">@color/background_White</item>
-        <item name="colorOnSecondary">@color/color_secondary_darktheme</item>
+        <item name="colorSecondary">@color/color_deeppurple</item>
+        <item name="colorSecondaryVariant">@color/color_blue</item>
+        <item name="colorOnSecondary">@color/color_blue</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->

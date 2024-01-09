@@ -20,9 +20,4 @@
         android:name="com.devcode.githubapps.ui.info.InfoFragment"
         android:label="fragment_info"
         tools:layout="@layout/fragment_info" />
-    <fragment
-        android:id="@+id/navigation_favourite"
-        android:name="com.devcode.githubapps.ui.favourite.FavouriteFragment"
-        android:label="fragment_favourite"
-        tools:layout="@layout/fragment_favourite" />
 </navigation>

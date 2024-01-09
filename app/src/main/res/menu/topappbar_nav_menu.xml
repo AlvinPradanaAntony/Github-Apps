@@ -2,8 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/setting"
+        android:id="@+id/favorite"
         android:icon="@drawable/id_baseline_settings_24"
         android:title="@string/title_setting"
+        android:iconTint="@color/color_soft_white"
         app:showAsAction="ifRoom"/>
 </menu>

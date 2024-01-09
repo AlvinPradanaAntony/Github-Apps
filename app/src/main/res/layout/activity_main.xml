@@ -22,9 +22,7 @@
                 style="@style/Widget.MaterialComponents.Toolbar.Primary"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                app:navigationIcon="?attr/colorPrimary"
-                app:menu="@menu/topappbar_nav_menu"
+                android:background="@color/background_White"
                 android:elevation="0dp">
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -39,7 +37,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="6dp"
                         android:src="@drawable/ic_github"
-                        app:tint="?attr/colorSecondaryVariant" />
+                        app:tint="?attr/colorSecondary" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tv_appbar"
@@ -47,8 +45,8 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/yalta_sans"
                         android:text="@string/title_actionbar"
-                        android:textColor="?attr/colorSecondaryVariant"
-                        android:textAppearance="@style/TextAppearance.Material3.ActionBar.Title" />
+                        android:textAppearance="@style/TextAppearance.Material3.ActionBar.Title"
+                        android:textColor="?attr/colorSecondary" />
                 </LinearLayout>
             </com.google.android.material.appbar.MaterialToolbar>
         </com.google.android.material.appbar.AppBarLayout>

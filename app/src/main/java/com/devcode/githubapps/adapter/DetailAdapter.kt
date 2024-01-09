@@ -1,6 +1,7 @@
 package com.devcode.githubapps.adapter
 
 import android.annotation.SuppressLint
+import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -9,7 +10,7 @@ import com.devcode.githubapps.R
 import com.devcode.githubapps.databinding.ItemRowBinding
 import com.devcode.githubapps.remote.UsersResponsesItem
 
-class FollowAdapter(private val listUsers: ArrayList<UsersResponsesItem>) : RecyclerView.Adapter<FollowAdapter.ViewHolder>() {
+class DetailAdapter(private val listUsers: ArrayList<UsersResponsesItem>) : RecyclerView.Adapter<DetailAdapter.ViewHolder>() {
     private lateinit var onItemClickCallback: OnItemClickCallback
 
     fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
@@ -30,12 +31,10 @@ class FollowAdapter(private val listUsers: ArrayList<UsersResponsesItem>) : Recy
         holder.binding.tvUsername.text = listUsers[position].htmlUrl
         Glide.with(holder.itemView.context)
             .load(listUsers[position].avatarUrl)
-            .override(102, 102)
             .error(R.drawable.placeholder)
             .into(holder.binding.profileImage)
         Glide.with(holder.itemView.context)
             .load(listUsers[position].avatarUrl)
-            .override(350, 350)
             .error(R.drawable.placeholder)
             .into(holder.binding.ivProfile)
         holder.itemView.setOnClickListener { onItemClickCallback.onItemClicked(listUsers[holder.adapterPosition]) }
